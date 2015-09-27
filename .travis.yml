@@ -1,0 +1,14 @@
+language: python
+python:
+ - "2.7"
+ - "3.3"
+ - "3.4"
+env:
+ - LC_ALL=en_US.utf-8
+install:
+ - pip install -r requirements-dev.txt #fix versions
+ - python setup.py develop
+script:
+ - py.test --cov urihandler --cov-report term-missing tests
+after_success:
+ - coveralls
