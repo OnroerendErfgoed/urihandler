@@ -11,7 +11,7 @@ UriHandler
 .. image:: https://coveralls.io/repos/OnroerendErfgoed/urihandler/badge.png?branch=master
         :target: https://coveralls.io/r/OnroerendErfgoed/urihandler
 
-This very simple applications is meant to be the handler on a domain that
+This very simple application is meant to be the handler on a domain that
 handles Cool Uri's (http://www.w3.org/TR/cooluris/) with 303 redirects.
 
 All it does is map Uri's to other uri's and redirect them. To make thing easy
