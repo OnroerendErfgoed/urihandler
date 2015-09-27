@@ -14,8 +14,11 @@ def handlerconfig():
                 'match': '^/bar/(?P<name>\w+)$',
                 'redirect': 'http://localhost:5555/bar/{name}'
             } , {
-                'match': '^urn:x-barbar:(?P<namespace>:\w+):(?P<id>\d+)$',
+                'match': '^urn:x-barbar:(?P<namespace>\w+):(?P<id>\d+)$',
                 'mount': False,
+                'redirect': 'http://localhost:2222/{namespace}/{id}'
+            }, {
+                'match': 'override/(?P<namespace>\w+)/(?P<id>\d+)$',
                 'redirect': 'http://localhost:2222/{namespace}/{id}'
             }
         ]

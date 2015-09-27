@@ -1,17 +1,11 @@
 from pyramid.view import view_config
 
-from pyramid.response import Response
-
 from pyramid.httpexceptions import (
     HTTPSeeOther,
     HTTPBadRequest,
     HTTPNotFound
 )
 
-
-@view_config(route_name='home')
-def my_view(request):
-    return Response(request.host_url)
 
 @view_config(route_name='redirect')
 def redirect(request):
@@ -20,6 +14,7 @@ def redirect(request):
     if not redirect:
         raise HTTPNotFound()
     return HTTPSeeOther(redirect)
+
 
 @view_config(route_name='handle')
 def handle(request):

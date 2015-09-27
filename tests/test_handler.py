@@ -33,6 +33,12 @@ class TestHandler:
         res = urihandler.handle('http://test.urihandler.org/foobar/18', req)
         assert res == 'http://localhost:5555/foobar/18'
 
+    def test_unanchored_redirect(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = 'http://test.urihandler.org'
+        res = urihandler.handle('http://test.urihandler.org/something/override/me/987', req)
+        assert res == 'http://localhost:2222/me/987'
+
 
 class MockRegistry:
 

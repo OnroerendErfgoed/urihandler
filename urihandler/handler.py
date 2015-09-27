@@ -28,7 +28,7 @@ class UriHandler:
                 if u['match'].startswith('^'):
                     u['match'] = u['match'].replace('^', '^' + request.host_url)
                 else:
-                    u['match'] = request.host + '.*' + u['match']
+                    u['match'] = request.host_url + '/.*' + u['match']
             log.debug('Matching {0} to {1}.'.format(uri, u['match']))
             m = re.match(u['match'], uri)
             if m:
