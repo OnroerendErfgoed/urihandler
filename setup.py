@@ -14,7 +14,7 @@ requires = [
     ]
 
 setup(name='urihandler',
-      version='0.1.0.dev0',
+      version='0.1.0',
       description='A tiny application that handles (cool) uri\'s.',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
@@ -29,7 +29,7 @@ setup(name='urihandler',
         ],
       author='Flanders Heritage Agency',
       author_email='ict@onroerenderfgoed.be',
-      url='http://urihandler.readthedocs.org',
+      url='https://github.com/OnroerendErfgoed/urihandler',
       license='GPLv3',
       keywords='web wsgi pyramid uri',
       packages=find_packages(),
