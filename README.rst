@@ -16,8 +16,11 @@ handles Cool Uri's (http://www.w3.org/TR/cooluris/) with 303 redirects.
 
 All it does is map Uri's to other uri's and redirect them. To make thing easy
 you can either redirect by hitting the full URI (eg.
-`http://id.example.com/foo/15`) or by querying a hanle service (eg.
-`http://id.example.com/handle?uri=http://id.example.com/foo/15`). This can be
+`http://id.example.com/foo/15`) or by querying a handle service (eg.
+`http://id.example.com/handle?uri=http://id.example.com/foo/15`). Both of these
+will redirect you. The handle service also works for non-http URI's. Finally,
+there's a service that just returns information without performing a redirect,
+eg. `http://id.example.com/uris?uri=http://id.example.com/foo/15`. This can be
 handy to bypass some of the strangeness that happens when you combine Cool uri's
 with CORS and custom HTTP headers.
 

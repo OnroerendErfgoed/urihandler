@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 
 import pytest
 
@@ -33,4 +34,25 @@ class TestFunctional:
 
     def test_handle_no_uri(self, app):
         res = app.get('/handle?url=http://id.erfgoed.net/foo/1', status=400)
+        assert res.status == '400 Bad Request'
+
+    def test_uris(self, app):
+        res = app.get('/uris?uri=http://localhost/foobar/18')
+        assert res.status == '200 OK'
+        assert 'application/json' in res.headers['Content-Type']
+        data = json.loads(res.body.decode('utf-8'))
+        assert data['uri'] == 'http://localhost/foobar/18'
+        assert data['location'] == 'http://localhost:5555/foobar/18'
+
+    def test_uris_no_match(self, app):
+        res = app.get('/uris?uri=http://id.erfgoed.net/foo/1')
+        assert res.status == '200 OK'
+        assert 'application/json' in res.headers['Content-Type']
+        data = json.loads(res.body.decode('utf-8'))
+        assert data['uri'] == 'http://id.erfgoed.net/foo/1'
+        assert data['location'] is None
+        assert not data['success']
+
+    def test_uris_no_uri(self, app):
+        res = app.get('/uris?url=http://localhost/foobar/18', status=400)
         assert res.status == '400 Bad Request'

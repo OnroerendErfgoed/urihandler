@@ -67,6 +67,7 @@ def main(global_config, **settings):
     config.add_request_method(get_uri_handler, 'uri_handler', reify=True)
 
     config.add_route('handle', '/handle')
+    config.add_route('uris', '/uris')
     config.add_route('redirect', '/{uri:.*}')
 
     config.scan()

@@ -25,3 +25,15 @@ def handle(request):
     if not redirect:
         raise HTTPNotFound('Unknown URI.')
     return HTTPSeeOther(redirect)
+
+@view_config(route_name='uris', renderer='json', accept='application/json')
+def uris(request):
+    uri = request.params.get('uri', None)
+    if not uri:
+        raise HTTPBadRequest('Please include a URI parameter.')
+    redirect = request.uri_handler.handle(uri, request)
+    return {
+        'uri': uri,
+        'success': redirect is not None,
+        'location': redirect
+    }
