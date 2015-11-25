@@ -56,3 +56,11 @@ class TestFunctional:
     def test_uris_no_uri(self, app):
         res = app.get('/uris?url=http://localhost/foobar/18', status=400)
         assert res.status == '400 Bad Request'
+
+    def test_uris_two_parameters(self, app):
+        res = app.get('/uris?uri=urn:x-barbar:area:51')
+        assert res.status == '200 OK'
+        assert 'application/json' in res.headers['Content-Type']
+        data = json.loads(res.body.decode('utf-8'))
+        assert data['uri'] == 'urn:x-barbar:area:51'
+        assert data['location'] == 'http://localhost:2222/area/51'

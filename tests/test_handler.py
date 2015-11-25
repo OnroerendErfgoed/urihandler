@@ -39,6 +39,10 @@ class TestHandler:
         res = urihandler.handle('http://test.urihandler.org/something/override/me/987', req)
         assert res == 'http://localhost:2222/me/987'
 
+    def test_urn_redirect(self, urihandler):
+        req = testing.DummyRequest()
+        res = urihandler.handle('urn:x-barbar:area:51', req)
+        assert res == 'http://localhost:2222/area/51'
 
 class MockRegistry:
 
