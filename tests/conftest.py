@@ -20,6 +20,10 @@ def handlerconfig():
             }, {
                 'match': 'override/(?P<namespace>\w+)/(?P<id>\d+)$',
                 'redirect': 'http://localhost:2222/{namespace}/{id}'
+            }, {
+                'match': '^/foo/(?P<foo_id>\d+)/bar/(?P<bar_id>\d+)$',
+                'mount': True,
+                'redirect': 'http://localhost:5555/foo/{foo_id}/bar/{bar_id}'
             }
         ]
     }

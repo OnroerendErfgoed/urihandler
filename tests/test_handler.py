@@ -44,6 +44,12 @@ class TestHandler:
         res = urihandler.handle('urn:x-barbar:area:51', req)
         assert res == 'http://localhost:2222/area/51'
 
+    def test_two_matches(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = 'http://test.urihandler.org'
+        res = urihandler.handle('http://test.urihandler.org/foo/6/bar/66', req)
+        assert res == 'http://localhost:5555/foo/6/bar/66'
+
 class MockRegistry:
 
     def __init__(self, settings=None):
