@@ -3,8 +3,11 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import (
     HTTPSeeOther,
     HTTPBadRequest,
-    HTTPNotFound
+    HTTPNotFound,
+    HTTPNotModified
 )
+
+from utils import create_version_hash
 
 
 @view_config(route_name='redirect')
@@ -32,8 +35,14 @@ def uris(request):
     if not uri:
         raise HTTPBadRequest('Please include a URI parameter.')
     redirect = request.uri_handler.handle(uri, request)
-    return {
+    res = {
         'uri': uri,
         'success': redirect is not None,
         'location': redirect
     }
+    etag = create_version_hash(res, request)
+    request.response.headers['Cache-Control'] = 'public, max-age=86400'
+    request.response.headers['ETag'] = etag
+    if request.headers['If-None-Match'] == etag:
+        raise HTTPNotModified
+    return res
