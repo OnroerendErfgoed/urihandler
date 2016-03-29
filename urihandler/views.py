@@ -43,6 +43,6 @@ def uris(request):
     etag = create_version_hash(res, request)
     request.response.headers['Cache-Control'] = 'public, max-age=86400'
     request.response.headers['ETag'] = etag
-    if request.headers['If-None-Match'] == etag:
-        raise HTTPNotModified
+    if 'If-None-Match' in request.headers:
+        request.response.conditional_response = True
     return res

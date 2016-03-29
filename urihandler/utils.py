@@ -15,5 +15,5 @@ def create_version_hash(uri_dict, request):
     '''
     json = render(renderer_name='json', value=uri_dict, request=request)
     hash = native_(
-        base64.b64encode(hashlib.md5(bytes_(b_json, encoding='UTF-8')).digest()), encoding='UTF-8')
+        base64.b64encode(hashlib.md5(bytes_(json, encoding='UTF-8')).digest()), encoding='UTF-8')
     return hash.strip('=')
