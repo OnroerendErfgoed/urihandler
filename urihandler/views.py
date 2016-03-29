@@ -7,7 +7,7 @@ from pyramid.httpexceptions import (
     HTTPNotModified
 )
 
-from utils import create_version_hash
+from urihandler.utils import create_version_hash
 
 
 @view_config(route_name='redirect')
