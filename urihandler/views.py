@@ -29,7 +29,12 @@ def handle(request):
         raise HTTPNotFound('Unknown URI.')
     return HTTPSeeOther(redirect)
 
-@view_config(route_name='uris', renderer='json', accept='application/json')
+@view_config(
+    route_name='uris',
+    renderer='json',
+    accept='application/json',
+    http_cache=(86400, {'public': True})
+)
 def uris(request):
     uri = request.params.get('uri', None)
     if not uri:
@@ -41,7 +46,6 @@ def uris(request):
         'location': redirect
     }
     etag = create_version_hash(res, request)
-    request.response.headers['Cache-Control'] = 'public, max-age=86400'
     request.response.headers['ETag'] = etag
     if 'If-None-Match' in request.headers:
         request.response.conditional_response = True
