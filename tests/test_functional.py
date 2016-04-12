@@ -64,3 +64,14 @@ class TestFunctional:
         data = json.loads(res.body.decode('utf-8'))
         assert data['uri'] == 'urn:x-barbar:area:51'
         assert data['location'] == 'http://localhost:2222/area/51'
+
+    def test_uris_caching(self, app):
+        res = app.get('/uris?uri=http://localhost/foobar/18')
+        assert 'Cache-Control' in res.headers
+        assert 'ETag' in res.headers
+        etag = res.headers['ETag']
+        res2 = app.get(
+            '/uris?uri=http://localhost/foobar/18',
+            headers={'If-None-Match': etag}
+        )
+        assert res2.status == '304 Not Modified'
