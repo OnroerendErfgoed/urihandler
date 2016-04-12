@@ -3,8 +3,6 @@ UriHandler
 
 .. image:: https://badge.fury.io/py/urihandler.png
         :target: http://badge.fury.io/py/urihandler
-.. image:: https://readthedocs.org/projects/urihandler/badge/?version=latest
-        :target: https://readthedocs.org/projects/urihandler/?badge=latest
 
 .. image:: https://travis-ci.org/OnroerendErfgoed/urihandler.png?branch=master
         :target: https://travis-ci.org/OnroerendErfgoed/urihandler
