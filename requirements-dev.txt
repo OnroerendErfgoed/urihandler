@@ -15,4 +15,4 @@ webtest==2.0.28
 coveralls==1.2.0
 
 # Wheel
-wheel==0.29.0
+wheel==0.30.0
