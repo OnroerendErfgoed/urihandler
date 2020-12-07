@@ -10,43 +10,40 @@ from pyramid.httpexceptions import (
 from urihandler.utils import create_version_hash
 
 
-@view_config(route_name='redirect')
+@view_config(route_name="redirect")
 def redirect(request):
-    uri = request.host_url + '/' + request.matchdict['uri']
+    uri = request.host_url + "/" + request.matchdict["uri"]
     redirect = request.uri_handler.handle(uri, request)
     if not redirect:
         raise HTTPNotFound()
     return HTTPSeeOther(redirect)
 
 
-@view_config(route_name='handle')
+@view_config(route_name="handle")
 def handle(request):
-    uri = request.params.get('uri', None)
+    uri = request.params.get("uri", None)
     if not uri:
-        raise HTTPBadRequest('Please include a URI parameter.')
+        raise HTTPBadRequest("Please include a URI parameter.")
     redirect = request.uri_handler.handle(uri, request)
     if not redirect:
-        raise HTTPNotFound('Unknown URI.')
+        raise HTTPNotFound("Unknown URI.")
     return HTTPSeeOther(redirect)
 
+
 @view_config(
-    route_name='uris',
-    renderer='json',
-    accept='application/json',
-    http_cache=(86400, {'public': True})
+    route_name="uris",
+    renderer="json",
+    accept="application/json",
+    http_cache=(86400, {"public": True}),
 )
 def uris(request):
-    uri = request.params.get('uri', None)
+    uri = request.params.get("uri", None)
     if not uri:
-        raise HTTPBadRequest('Please include a URI parameter.')
+        raise HTTPBadRequest("Please include a URI parameter.")
     redirect = request.uri_handler.handle(uri, request)
-    res = {
-        'uri': uri,
-        'success': redirect is not None,
-        'location': redirect
-    }
+    res = {"uri": uri, "success": redirect is not None, "location": redirect}
     etag = create_version_hash(res, request)
-    request.response.headers['ETag'] = etag
-    if 'If-None-Match' in request.headers:
+    request.response.headers["ETag"] = etag
+    if "If-None-Match" in request.headers:
         request.response.conditional_response = True
     return res
