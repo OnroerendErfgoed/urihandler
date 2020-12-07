@@ -14,7 +14,7 @@ from urihandler.handler import (
     IUriHandler,
     UriHandler,
     _build_uri_handler,
-    get_uri_handler,
+    get_uri_handler
 )
 
 

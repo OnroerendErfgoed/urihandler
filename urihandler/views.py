@@ -4,7 +4,7 @@ from pyramid.httpexceptions import (
     HTTPSeeOther,
     HTTPBadRequest,
     HTTPNotFound,
-    HTTPNotModified,
+    HTTPNotModified
 )
 
 from urihandler.utils import create_version_hash
