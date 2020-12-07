@@ -27,13 +27,13 @@ def _parse_settings(settings):
     urihand_settings = defaults.copy()
 
     for short_key_name in ('config', ):
-        key_name = '%s.%s' % (prefix, short_key_name)
+        key_name = '{}.{}'.format(prefix, short_key_name)
         if key_name in settings:
             urihand_settings[short_key_name] = \
                 settings.get(key_name, defaults.get(short_key_name, None))
 
     for short_key in urihand_settings:
-        long_key = '%s.%s' % (prefix, short_key)
+        long_key = '{}.{}'.format(prefix, short_key)
         settings[long_key] = urihand_settings[short_key]
 
     return urihand_settings

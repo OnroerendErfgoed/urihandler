@@ -29,11 +29,11 @@ class UriHandler:
                     u['match'] = u['match'].replace('^', '^' + request.host_url)
                 else:
                     u['match'] = request.host_url + '/.*' + u['match']
-            log.debug('Matching {0} to {1}.'.format(uri, u['match']))
+            log.debug('Matching {} to {}.'.format(uri, u['match']))
             m = re.match(u['match'], uri)
             if m:
                 redirect = u['redirect'].format(**m.groupdict())
-                log.debug('Match found. Redirecting to {0}.'.format(redirect,))
+                log.debug('Match found. Redirecting to {}.'.format(redirect,))
                 return redirect
         return None
 
