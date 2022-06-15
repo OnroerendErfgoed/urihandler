@@ -53,7 +53,7 @@ def _load_configuration(path):
     """
     log.debug("Loading uriregistry config from %s." % path)
     f = open(path)
-    content = yaml.load(f.read())
+    content = yaml.safe_load(f.read())
     log.debug(content)
     f.close()
     return content
