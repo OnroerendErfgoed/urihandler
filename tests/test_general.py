@@ -1,9 +1,7 @@
 import os
 
-from urihandler import (
-    _parse_settings,
-    _load_configuration
-)
+from urihandler import _load_configuration
+from urihandler import _parse_settings
 
 
 class TestGeneral:

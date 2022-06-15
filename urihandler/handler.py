@@ -1,11 +1,10 @@
-import logging
-
-log = logging.getLogger(__name__)
-
-import re
 import copy
+import logging
+import re
 
 from zope.interface import Interface
+
+log = logging.getLogger(__name__)
 
 
 class IUriHandler(Interface):
