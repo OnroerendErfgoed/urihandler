@@ -1,8 +1,9 @@
 import base64
 import hashlib
 
-from pyramid.compat import native_, bytes_
 from pyramid.renderers import render
+from pyramid_debugtoolbar.compat import bytes_
+from pyramid_debugtoolbar.compat import native_
 
 
 def create_version_hash(uri_dict, request):
