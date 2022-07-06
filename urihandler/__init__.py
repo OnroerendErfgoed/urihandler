@@ -1,14 +1,13 @@
 import logging
+import os
 
-log = logging.getLogger(__name__)
-
+import yaml
 from pyramid.config import Configurator
 
-import os
-import json
-import yaml
+from .handler import _build_uri_handler
+from .handler import get_uri_handler
 
-from .handler import get_uri_handler, _build_uri_handler
+log = logging.getLogger(__name__)
 
 
 def _parse_settings(settings):
@@ -53,7 +52,7 @@ def _load_configuration(path):
     """
     log.debug("Loading uriregistry config from %s." % path)
     f = open(path)
-    content = yaml.load(f.read())
+    content = yaml.safe_load(f.read())
     log.debug(content)
     f.close()
     return content

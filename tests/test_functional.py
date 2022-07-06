@@ -1,8 +1,7 @@
-import os
 import json
+import os
 
 import pytest
-
 from webtest import TestApp
 
 
@@ -22,6 +21,10 @@ class TestFunctional:
     def test_redirect(self, app):
         res = app.get("/foobar/18", status=303)
         assert res.status == "303 See Other"
+
+    def test_redirect_not_allowed(self, app):
+        res = app.post("/foobar/18", status=405)
+        assert res.status == "405 Method Not Allowed"
 
     def test_redirect_no_match(self, app):
         res = app.get("/test", status=404)

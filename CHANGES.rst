@@ -1,3 +1,13 @@
+1.0.0 (06-07-2022)
+------------------
+
+- Drop python 2 support (#80)
+- Update to pyramid 2 (#78)
+- Update dependencies (#77)
+- Is setup.cfg still needed? (#76)
+- Drop pyup support (#75)
+- Which HTTP methods does the "redirect" route support? (#73)
+
 0.4.0 (07-12-2020)
 ------------------
 
