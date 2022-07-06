@@ -1,11 +1,7 @@
+from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPSeeOther
 from pyramid.view import view_config
-
-from pyramid.httpexceptions import (
-    HTTPSeeOther,
-    HTTPBadRequest,
-    HTTPNotFound,
-    HTTPNotModified
-)
 
 from urihandler.utils import create_version_hash
 

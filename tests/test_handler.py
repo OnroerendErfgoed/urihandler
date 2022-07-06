@@ -1,21 +1,13 @@
-import os
-import unittest
-import pytest
-
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-
 from pyramid import testing
-from pyramid.response import Response
 
-from urihandler import _load_configuration
-from urihandler.handler import (
-    IUriHandler,
-    UriHandler,
-    _build_uri_handler,
-    get_uri_handler
-)
+from urihandler.handler import IUriHandler
+from urihandler.handler import UriHandler
+from urihandler.handler import _build_uri_handler
+from urihandler.handler import get_uri_handler
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class TestHandler:
