@@ -10,7 +10,10 @@ def handlerconfig():
             {
                 "match": r"^/foobar/(?P<id>\d+)$",
                 "mount": True,
-                "redirect": "http://localhost:5555/foobar/{id}",
+                "redirect": {
+                    "text/html": "http://localhost:5555/foobar/{id}",
+                    "application/json": "http://localhost:5555/foobar/{id}.json",
+                }
             },
             {
                 "match": r"^/bar/(?P<name>\w+)$",
