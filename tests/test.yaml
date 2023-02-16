@@ -1,9 +1,12 @@
 uris:
-    - match: '^/foobar/(?P<id>\d+)$'
-      mount: True
-      redirect: 'http://localhost:5555/foobar/{id}'
-    - match: '^/bar/(?P<name>\w+)$'
-      redirect: 'http://localhost:5555/bar/{name}'
-    - match: '^urn:x-barbar:(?P<namespace>\w+):(?P<id>\d+)$'
-      mount: False
-      redirect: 'http://localhost:2222/{namespace}/{id}'
+  - match: '^/foobar/(?P<id>\d+)$'
+    mount: True
+    redirect:
+      default: 'http://localhost:5555/foobar/{id}'
+      text/html: 'http://localhost:5555/foobar/{id}'
+      application/json: 'http://localhost:5555/foobar/{id}.json'
+  - match: '^/bar/(?P<name>\w+)$'
+    redirect: 'http://localhost:5555/bar/{name}'
+  - match: '^urn:x-barbar:(?P<namespace>\w+):(?P<id>\d+)$'
+    mount: False
+    redirect: 'http://localhost:2222/{namespace}/{id}'

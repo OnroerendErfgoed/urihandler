@@ -2,6 +2,8 @@ import copy
 import logging
 import re
 
+from pyramid.httpexceptions import HTTPNotAcceptable
+from webob.acceptparse import AcceptNoHeader
 from zope.interface import Interface
 
 log = logging.getLogger(__name__)
@@ -30,7 +32,20 @@ class UriHandler:
             log.debug(f"Matching {uri} to {u['match']}.")
             m = re.match(u["match"], uri)
             if m:
-                redirect = u["redirect"].format(**m.groupdict())
+                redirect = u["redirect"]
+                if isinstance(redirect, dict):
+                    if isinstance(request.accept, AcceptNoHeader):
+                        redirect = redirect.get("default")
+                        if not redirect:
+                            raise HTTPNotAcceptable()
+                    else:
+                        for mime, redirect in redirect.items():
+                            if mime in request.accept:
+                                break
+                        else:
+                            # No matching mime was found.
+                            raise HTTPNotAcceptable()
+                redirect = redirect.format(**m.groupdict())
                 log.debug(f"Match found. Redirecting to {redirect}.")
                 return redirect
         return None

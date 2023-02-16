@@ -1,0 +1,6 @@
+uris:
+  - match: '^/no_default_present/(?P<id>\d+)$'
+    mount: True
+    redirect:
+      text/html: 'http://localhost:5555/foobar/{id}'
+      application/json: 'http://localhost:5555/foobar/{id}.json'

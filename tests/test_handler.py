@@ -1,6 +1,8 @@
 import logging
 
+import pytest
 from pyramid import testing
+from pyramid.httpexceptions import HTTPNotAcceptable
 
 from urihandler.handler import IUriHandler
 from urihandler.handler import UriHandler
@@ -11,8 +13,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class TestHandler:
-    def test_urihandler_exists(self, urihandler):
-        assert urihandler
 
     def test_no_match(self, urihandler):
         req = testing.DummyRequest()
@@ -25,6 +25,40 @@ class TestHandler:
         req.host_url = "http://test.urihandler.org"
         res = urihandler.handle("http://test.urihandler.org/foobar/18", req)
         assert res == "http://localhost:5555/foobar/18"
+
+    def test_redirect_with_mime_match(self, urihandler):
+        req = testing.DummyRequest(accept="application/json")
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/foobar/18", req)
+        assert res == "http://localhost:5555/foobar/18.json"
+
+        req = testing.DummyRequest(accept="application/*")
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/foobar/18", req)
+        assert res == "http://localhost:5555/foobar/18.json"
+
+    def test_redirect_with_mime_no_match(self, urihandler):
+        req = testing.DummyRequest(accept="application/pdf")
+        req.host_url = "http://test.urihandler.org"
+        with pytest.raises(HTTPNotAcceptable):
+            urihandler.handle("http://test.urihandler.org/foobar/18", req)
+
+    def test_redirect_default_mime(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
+        assert res == "http://localhost:5555/pdf_default/18.pdf"
+
+        req = testing.DummyRequest(accept="application/*")
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
+        assert res == "http://localhost:5555/pdf_default/18.json"
+
+    def test_redirect_no_default_mime(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = "http://test.urihandler.org"
+        with pytest.raises(HTTPNotAcceptable):
+            urihandler.handle("http://test.urihandler.org/mime_no_default/18", req)
 
     def test_unanchored_redirect(self, urihandler):
         req = testing.DummyRequest()
