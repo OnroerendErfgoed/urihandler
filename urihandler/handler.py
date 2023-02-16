@@ -3,6 +3,7 @@ import logging
 import re
 
 from pyramid.httpexceptions import HTTPNotAcceptable
+from webob.acceptparse import AcceptNoHeader
 from zope.interface import Interface
 
 log = logging.getLogger(__name__)
@@ -33,11 +34,21 @@ class UriHandler:
             if m:
                 redirect = u["redirect"]
                 if isinstance(redirect, dict):
-                    for mime, redirect in redirect.items():
-                        if mime in request.accept:
-                            break
+                    default = u.get("default")
+                    # If the default mime matches with the accept header, prefer it.
+                    if default is not None and default in request.accept:
+                        redirect = redirect[default]
                     else:
-                        raise HTTPNotAcceptable()
+                        if isinstance(request.accept, AcceptNoHeader):
+                            # No accept header specified + no default configured
+                            raise HTTPNotAcceptable()
+                        # otherwise check all other configured mime types.
+                        for mime, redirect in redirect.items():
+                            if mime in request.accept:
+                                break
+                        else:
+                            # No matching mime was found.
+                            raise HTTPNotAcceptable()
                 redirect = redirect.format(**m.groupdict())
                 log.debug(f"Match found. Redirecting to {redirect}.")
                 return redirect

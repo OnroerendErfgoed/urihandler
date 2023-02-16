@@ -43,6 +43,23 @@ class TestHandler:
         with pytest.raises(HTTPNotAcceptable):
             urihandler.handle("http://test.urihandler.org/foobar/18", req)
 
+    def test_redirect_default_mime(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
+        assert res == "http://localhost:5555/pdf_default/18.pdf"
+
+        req = testing.DummyRequest(accept="application/*")
+        req.host_url = "http://test.urihandler.org"
+        res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
+        assert res == "http://localhost:5555/pdf_default/18.pdf"
+
+    def test_redirect_no_default_mime(self, urihandler):
+        req = testing.DummyRequest()
+        req.host_url = "http://test.urihandler.org"
+        with pytest.raises(HTTPNotAcceptable):
+            urihandler.handle("http://test.urihandler.org/mime_no_default/18", req)
+
     def test_unanchored_redirect(self, urihandler):
         req = testing.DummyRequest()
         req.host_url = "http://test.urihandler.org"
