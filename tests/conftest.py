@@ -9,9 +9,9 @@ def handlerconfig():
         "uris": [
             {
                 "match": r"^/foobar/(?P<id>\d+)$",
-                "default": "text/html",
                 "mount": True,
                 "redirect": {
+                    "default": "http://localhost:5555/foobar/{id}",
                     "text/html": "http://localhost:5555/foobar/{id}",
                     "application/json": "http://localhost:5555/foobar/{id}.json",
                 }
@@ -37,8 +37,8 @@ def handlerconfig():
             {
                 "match": r"^/pdf_default/(?P<id>\d+)$",
                 "mount": True,
-                "default": "application/pdf",
                 "redirect": {
+                    "default": "http://localhost:5555/pdf_default/{id}.pdf",
                     "text/html": "http://localhost:5555/pdf_default/{id}",
                     "application/json": "http://localhost:5555/pdf_default/{id}.json",
                     "application/pdf": "http://localhost:5555/pdf_default/{id}.pdf",

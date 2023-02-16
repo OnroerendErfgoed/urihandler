@@ -1,8 +1,8 @@
 uris:
   - match: '^/foobar/(?P<id>\d+)$'
-    default: 'text/html'
     mount: True
     redirect:
+      default: 'http://localhost:5555/foobar/{id}'
       text/html: 'http://localhost:5555/foobar/{id}'
       application/json: 'http://localhost:5555/foobar/{id}.json'
   - match: '^/bar/(?P<name>\w+)$'

@@ -34,15 +34,11 @@ class UriHandler:
             if m:
                 redirect = u["redirect"]
                 if isinstance(redirect, dict):
-                    default = u.get("default")
-                    # If the default mime matches with the accept header, prefer it.
-                    if default is not None and default in request.accept:
-                        redirect = redirect[default]
-                    else:
-                        if isinstance(request.accept, AcceptNoHeader):
-                            # No accept header specified + no default configured
+                    if isinstance(request.accept, AcceptNoHeader):
+                        redirect = redirect.get("default")
+                        if not redirect:
                             raise HTTPNotAcceptable()
-                        # otherwise check all other configured mime types.
+                    else:
                         for mime, redirect in redirect.items():
                             if mime in request.accept:
                                 break

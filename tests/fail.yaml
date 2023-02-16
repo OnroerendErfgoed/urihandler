@@ -4,12 +4,3 @@ uris:
     redirect:
       text/html: 'http://localhost:5555/foobar/{id}'
       application/json: 'http://localhost:5555/foobar/{id}.json'
-  - match: '^/unused_default_present/(?P<id>\d+)$'
-    default: 'text/html'
-    redirect: 'http://localhost:5555/bar/{name}'
-  - match: '^/default_does_not_exist/(?P<id>\d+)$'
-    default: 'application/pdf'
-    mount: True
-    redirect:
-      text/html: 'http://localhost:5555/foobar/{id}'
-      application/json: 'http://localhost:5555/foobar/{id}.json'

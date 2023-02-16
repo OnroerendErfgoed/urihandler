@@ -52,7 +52,7 @@ class TestHandler:
         req = testing.DummyRequest(accept="application/*")
         req.host_url = "http://test.urihandler.org"
         res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
-        assert res == "http://localhost:5555/pdf_default/18.pdf"
+        assert res == "http://localhost:5555/pdf_default/18.json"
 
     def test_redirect_no_default_mime(self, urihandler):
         req = testing.DummyRequest()

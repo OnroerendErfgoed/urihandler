@@ -64,18 +64,6 @@ def _load_configuration(path):
                     f"when no accept header is present."
                 )
             continue
-        default = redirect_rule["default"]
-        if not isinstance(redirect_rule["redirect"], dict):
-            log.warning(
-                f"{redirect_rule['match']}: {default=} value set but it will be ignored "
-                f"as there is no accept header filtering."
-            )
-            continue
-        if default not in redirect_rule["redirect"]:
-            raise ValueError(
-                f"{redirect_rule['match']}: Default mime {default} not found in "
-                f"redirect rules."
-            )
     log.debug(content)
     return content
 
