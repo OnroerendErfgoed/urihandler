@@ -40,10 +40,10 @@ class TestHandler:
     def test_redirect_with_mime_no_match(self, urihandler):
         req = testing.DummyRequest(accept="application/pdf")
         req.host_url = "http://test.urihandler.org"
-        with pytest.raises(HTTPNotAcceptable):
-            urihandler.handle("http://test.urihandler.org/foobar/18", req)
+        res = urihandler.handle("http://test.urihandler.org/foobar/18", req)
+        assert res == "http://localhost:5555/foobar/18"
 
-    def test_redirect_default_mime(self, urihandler):
+    def test_redirect_default_set(self, urihandler):
         req = testing.DummyRequest()
         req.host_url = "http://test.urihandler.org"
         res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
@@ -54,8 +54,13 @@ class TestHandler:
         res = urihandler.handle("http://test.urihandler.org/pdf_default/18", req)
         assert res == "http://localhost:5555/pdf_default/18.json"
 
-    def test_redirect_no_default_mime(self, urihandler):
+    def test_redirect_no_default(self, urihandler):
         req = testing.DummyRequest()
+        req.host_url = "http://test.urihandler.org"
+        with pytest.raises(HTTPNotAcceptable):
+            urihandler.handle("http://test.urihandler.org/mime_no_default/18", req)
+
+        req = testing.DummyRequest(accept="application/pdf")
         req.host_url = "http://test.urihandler.org"
         with pytest.raises(HTTPNotAcceptable):
             urihandler.handle("http://test.urihandler.org/mime_no_default/18", req)
