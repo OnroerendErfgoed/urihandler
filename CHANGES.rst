@@ -1,4 +1,4 @@
-1.0.0 (27-02-2023)
+1.1.0 (27-02-2023)
 ------------------
 
 - Onderscheid op accept header toelaten (#86)
