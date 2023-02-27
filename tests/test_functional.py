@@ -22,6 +22,21 @@ class TestFunctional:
         res = app.get("/foobar/18", status=303)
         assert res.status == "303 See Other"
 
+    def test_redirect_accept_header_json(self, app):
+        res = app.get("/foobar/18", headers={"Accept": "application/json"}, status=303)
+        assert res.status == "303 See Other"
+        assert res.location == 'http://localhost:5555/foobar/18.json'
+
+    def test_redirect_accept_header_html(self, app):
+        res = app.get("/foobar/18", headers={"Accept": "text/html"}, status=303)
+        assert res.status == "303 See Other"
+        assert res.location == 'http://localhost:5555/foobar/18'
+
+    def test_redirect_accept_header_wildcard(self, app):
+        res = app.get("/foobar/18", headers={"Accept": "*/*"}, status=303)
+        assert res.status == "303 See Other"
+        assert res.location == 'http://localhost:5555/foobar/18'
+
     def test_redirect_not_allowed(self, app):
         res = app.post("/foobar/18", status=405)
         assert res.status == "405 Method Not Allowed"

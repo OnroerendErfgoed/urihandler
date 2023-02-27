@@ -2,6 +2,8 @@ import copy
 import logging
 import re
 
+from pyramid.httpexceptions import HTTPNotAcceptable
+from webob.acceptparse import AcceptNoHeader
 from zope.interface import Interface
 
 log = logging.getLogger(__name__)
@@ -30,10 +32,40 @@ class UriHandler:
             log.debug(f"Matching {uri} to {u['match']}.")
             m = re.match(u["match"], uri)
             if m:
-                redirect = u["redirect"].format(**m.groupdict())
+                redirect = u["redirect"]
+                if isinstance(redirect, dict):
+                    redirect = self._get_redirect_based_on_accept_header(
+                        request.accept, redirect
+                    )
+                redirect = redirect.format(**m.groupdict())
                 log.debug(f"Match found. Redirecting to {redirect}.")
                 return redirect
         return None
+
+    def _get_redirect_based_on_accept_header(self, accept_header, redirect_rule):
+        """
+        Return the redirect rule based on accept header.
+
+        At its core it simply looks for a matching mime between accept header
+        and the configured mime type redirects. But exceptions apply.
+
+        If there is no accept header specified or if no matching mime is found,
+        the default will be returned. If default is not set, HTTP 406 gets raised.
+        """
+        default = redirect_rule.get("default")
+        if isinstance(accept_header, AcceptNoHeader):
+            if not default:
+                raise HTTPNotAcceptable()
+            return default
+
+        for mime, redirect in redirect_rule.items():
+            if mime in accept_header:
+                return redirect
+
+        if not default:
+            raise HTTPNotAcceptable()
+
+        return default
 
 
 def _build_uri_handler(registry, handlerconfig):

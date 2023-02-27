@@ -51,10 +51,20 @@ def _load_configuration(path):
     :returns: A :class:`dict` with the config options.
     """
     log.debug("Loading uriregistry config from %s." % path)
-    f = open(path)
-    content = yaml.safe_load(f.read())
+    with open(path) as f:
+        content = yaml.safe_load(f.read())
+
+    # Perform some validation so we can warn/fail early.
+    for redirect_rule in content["uris"]:
+        if "default" not in redirect_rule:
+            if isinstance(redirect_rule["redirect"], dict):
+                log.warning(
+                    f"{redirect_rule['match']}: Having no default mimetype when "
+                    f"declaring multiple mime redirect rules will result in a 406 "
+                    f"when no accept header is present."
+                )
+            continue
     log.debug(content)
-    f.close()
     return content
 
 

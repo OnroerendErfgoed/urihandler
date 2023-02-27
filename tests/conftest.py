@@ -10,7 +10,11 @@ def handlerconfig():
             {
                 "match": r"^/foobar/(?P<id>\d+)$",
                 "mount": True,
-                "redirect": "http://localhost:5555/foobar/{id}",
+                "redirect": {
+                    "default": "http://localhost:5555/foobar/{id}",
+                    "text/html": "http://localhost:5555/foobar/{id}",
+                    "application/json": "http://localhost:5555/foobar/{id}.json",
+                }
             },
             {
                 "match": r"^/bar/(?P<name>\w+)$",
@@ -29,6 +33,24 @@ def handlerconfig():
                 "match": r"^/foo/(?P<foo_id>\d+)/bar/(?P<bar_id>\d+)$",
                 "mount": True,
                 "redirect": "http://localhost:5555/foo/{foo_id}/bar/{bar_id}",
+            },
+            {
+                "match": r"^/pdf_default/(?P<id>\d+)$",
+                "mount": True,
+                "redirect": {
+                    "default": "http://localhost:5555/pdf_default/{id}.pdf",
+                    "text/html": "http://localhost:5555/pdf_default/{id}",
+                    "application/json": "http://localhost:5555/pdf_default/{id}.json",
+                    "application/pdf": "http://localhost:5555/pdf_default/{id}.pdf",
+                }
+            },
+            {
+                "match": r"^/mime_no_default/(?P<id>\d+)$",
+                "mount": True,
+                "redirect": {
+                    "text/html": "http://localhost:5555/pdf_default/{id}",
+                    "application/json": "http://localhost:5555/pdf_default/{id}.json",
+                }
             },
         ]
     }
