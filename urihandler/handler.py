@@ -24,7 +24,7 @@ class UriHandler:
     def handle(self, uri, request):
         params = ""
         if "?" in uri:
-            uri, params = uri.rsplit("?", 1)
+            uri, params = uri.split("?", 1)
         uris = copy.deepcopy(self.uris)
         for u in uris:
             if "mount" not in u or u["mount"]:
