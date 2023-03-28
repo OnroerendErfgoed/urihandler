@@ -22,6 +22,9 @@ class UriHandler:
         self.uris = uris
 
     def handle(self, uri, request):
+        params = ""
+        if "?" in uri:
+            uri, params = uri.rsplit("?", 1)
         uris = copy.deepcopy(self.uris)
         for u in uris:
             if "mount" not in u or u["mount"]:
@@ -37,7 +40,10 @@ class UriHandler:
                     redirect = self._get_redirect_based_on_accept_header(
                         request.accept, redirect
                     )
-                redirect = redirect.format(**m.groupdict())
+                if params:
+                    redirect = f"{redirect.format(**m.groupdict())}?{params}"
+                else:
+                    redirect = redirect.format(**m.groupdict())
                 log.debug(f"Match found. Redirecting to {redirect}.")
                 return redirect
         return None
