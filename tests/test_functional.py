@@ -65,6 +65,23 @@ class TestFunctional:
         assert data["uri"] == "http://localhost/foobar/18"
         assert data["location"] == "http://localhost:5555/foobar/18"
 
+    def test_uris_with_params(self, app):
+        res = app.get(
+            "/uris?uri=http://localhost/foobar/18"
+            "?utm_source%3Dbeslissingsmail%26utm_medium%3Demail"
+        )
+        assert res.status == "200 OK"
+        assert "application/json" in res.headers["Content-Type"]
+        data = json.loads(res.body.decode("utf-8"))
+        assert data["uri"] == (
+            "http://localhost/foobar/18"
+            "?utm_source=beslissingsmail&utm_medium=email"
+        )
+        assert data["location"] == (
+            "http://localhost:5555/foobar/18"
+            "?utm_source=beslissingsmail&utm_medium=email"
+        )
+
     def test_uris_no_match(self, app):
         res = app.get("/uris?uri=http://id.erfgoed.net/foo/1")
         assert res.status == "200 OK"

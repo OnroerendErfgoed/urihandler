@@ -1,4 +1,9 @@
-1.0.0 (27-02-2023)
+1.2.0 (25-04-2023)
+------------------
+
+- URL parameters meegeven (#92)
+
+1.1.0 (27-02-2023)
 ------------------
 
 - Onderscheid op accept header toelaten (#86)
