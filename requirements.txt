@@ -1,2 +1,2 @@
-pyramid==2.0
+pyramid==2.0.2
 PyYAML==6.0
