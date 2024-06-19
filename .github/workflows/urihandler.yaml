@@ -20,29 +20,23 @@ env:
 
 jobs:
   test:
-    name: Bacend tests
-
-    services:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-
       - name: Install python requirements
         env:
           HATCH_BUILD_NO_HOOKS: true
+        working-directory: ./
         run: |
+          pip --version
           pip install pip-tools
           pip-sync requirements-ci.txt
           pip install -e .
 
       - name: Python tests
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
-        run: |
-          flake8
-          py.test --cov urihandler --cov-report term-missing tests
+        run: pytest tests --exitfirst --capture=no -vvv --full-trace
