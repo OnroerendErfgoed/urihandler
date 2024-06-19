@@ -25,17 +25,17 @@ class TestFunctional:
     def test_redirect_accept_header_json(self, app):
         res = app.get("/foobar/18", headers={"Accept": "application/json"}, status=303)
         assert res.status == "303 See Other"
-        assert res.location == 'http://localhost:5555/foobar/18.json'
+        assert res.location == "http://localhost:5555/foobar/18.json"
 
     def test_redirect_accept_header_html(self, app):
         res = app.get("/foobar/18", headers={"Accept": "text/html"}, status=303)
         assert res.status == "303 See Other"
-        assert res.location == 'http://localhost:5555/foobar/18'
+        assert res.location == "http://localhost:5555/foobar/18"
 
     def test_redirect_accept_header_wildcard(self, app):
         res = app.get("/foobar/18", headers={"Accept": "*/*"}, status=303)
         assert res.status == "303 See Other"
-        assert res.location == 'http://localhost:5555/foobar/18'
+        assert res.location == "http://localhost:5555/foobar/18"
 
     def test_redirect_not_allowed(self, app):
         res = app.post("/foobar/18", status=405)
@@ -74,8 +74,7 @@ class TestFunctional:
         assert "application/json" in res.headers["Content-Type"]
         data = json.loads(res.body.decode("utf-8"))
         assert data["uri"] == (
-            "http://localhost/foobar/18"
-            "?utm_source=beslissingsmail&utm_medium=email"
+            "http://localhost/foobar/18" "?utm_source=beslissingsmail&utm_medium=email"
         )
         assert data["location"] == (
             "http://localhost:5555/foobar/18"

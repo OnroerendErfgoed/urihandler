@@ -1,2 +1,27 @@
-pyramid==2.0
-PyYAML==6.0
+hupper==1.12.1
+    # via pyramid
+pastedeploy==3.1.0
+    # via plaster-pastedeploy
+plaster==1.1.2
+    # via
+    #   plaster-pastedeploy
+    #   pyramid
+plaster-pastedeploy==1.0.1
+    # via pyramid
+pyramid==2.0.2
+pyyaml==6.0.1
+setuptools==70.0.0
+    # via
+    #   pyramid
+    #   zope-deprecation
+    #   zope-interface
+translationstring==1.4
+    # via pyramid
+venusian==3.1.0
+    # via pyramid
+webob==1.8.7
+    # via pyramid
+zope-deprecation==5.0
+    # via pyramid
+zope-interface==6.4.post2
+    # via pyramid
