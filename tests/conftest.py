@@ -14,7 +14,7 @@ def handlerconfig():
                     "default": "http://localhost:5555/foobar/{id}",
                     "text/html": "http://localhost:5555/foobar/{id}",
                     "application/json": "http://localhost:5555/foobar/{id}.json",
-                }
+                },
             },
             {
                 "match": r"^/bar/(?P<name>\w+)$",
@@ -42,7 +42,7 @@ def handlerconfig():
                     "text/html": "http://localhost:5555/pdf_default/{id}",
                     "application/json": "http://localhost:5555/pdf_default/{id}.json",
                     "application/pdf": "http://localhost:5555/pdf_default/{id}.pdf",
-                }
+                },
             },
             {
                 "match": r"^/mime_no_default/(?P<id>\d+)$",
@@ -50,7 +50,7 @@ def handlerconfig():
                 "redirect": {
                     "text/html": "http://localhost:5555/pdf_default/{id}",
                     "application/json": "http://localhost:5555/pdf_default/{id}.json",
-                }
+                },
             },
         ]
     }

@@ -18,8 +18,8 @@ class UriHandler:
     Central handler that deals with redirecting uri's.
     """
 
-    def __init__(self, uris=[]):
-        self.uris = uris
+    def __init__(self, uris=None):
+        self.uris = uris or []
 
     def handle(self, uri, request):
         params = ""
