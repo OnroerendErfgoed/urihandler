@@ -10,6 +10,8 @@ from urihandler.utils import create_version_hash
 @view_config(route_name="redirect", request_method=("GET", "HEAD", "OPTIONS"))
 def redirect(request):
     uri = request.host_url + "/" + request.matchdict["uri"]
+    if request.query_string:
+        uri = f"{uri}?{request.query_string}"
     redirect = request.uri_handler.handle(uri, request)
     if not redirect:
         raise HTTPNotFound()
