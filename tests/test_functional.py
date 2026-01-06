@@ -22,6 +22,17 @@ class TestFunctional:
         res = app.get("/foobar/18", status=303)
         assert res.status == "303 See Other"
 
+    def test_redirect_with_query_params(self, app):
+        res = app.get(
+            "/foobar/18?utm_source=epc&utm_medium=official&utm_campaign=epc_disclaimer",
+            status=303,
+        )
+        assert res.status == "303 See Other"
+        assert res.location == (
+            "http://localhost:5555/foobar/18"
+            "?utm_source=epc&utm_medium=official&utm_campaign=epc_disclaimer"
+        )
+
     def test_redirect_accept_header_json(self, app):
         res = app.get("/foobar/18", headers={"Accept": "application/json"}, status=303)
         assert res.status == "303 See Other"

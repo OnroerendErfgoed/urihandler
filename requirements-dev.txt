@@ -1,6 +1,7 @@
 beautifulsoup4==4.12.3
     # via webtest
 black==24.4.2
+    # via urihandler (pyproject.toml)
 certifi==2024.6.2
     # via requests
 cfgv==3.4.0
@@ -14,6 +15,7 @@ coverage==7.5.3
     #   coveralls
     #   pytest-cov
 coveralls==4.0.1
+    # via urihandler (pyproject.toml)
 distlib==0.3.8
     # via virtualenv
 docopt==0.6.2
@@ -21,7 +23,9 @@ docopt==0.6.2
 filelock==3.15.1
     # via virtualenv
 flake8==7.1.0
+    # via urihandler (pyproject.toml)
 flake8-import-order==0.18.2
+    # via urihandler (pyproject.toml)
 hupper==1.12.1
     # via pyramid
 identify==2.5.36
@@ -61,6 +65,7 @@ platformdirs==4.2.2
 pluggy==1.5.0
     # via pytest
 pre-commit==3.7.1
+    # via urihandler (pyproject.toml)
 pycodestyle==2.12.0
     # via
     #   flake8
@@ -71,16 +76,23 @@ pygments==2.18.0
     # via pyramid-debugtoolbar
 pyramid==2.0.2
     # via
+    #   urihandler (pyproject.toml)
     #   pyramid-debugtoolbar
     #   pyramid-mako
 pyramid-debugtoolbar==4.12.1
+    # via urihandler (pyproject.toml)
 pyramid-mako==1.1.0
     # via pyramid-debugtoolbar
 pytest==8.2.2
-    # via pytest-cov
-pytest-cov==5.0.0
+    # via
+    #   urihandler (pyproject.toml)
+    #   pytest-cov
+pytest-cov==6.0.0
+    # via urihandler (pyproject.toml)
 pyyaml==6.0.1
-    # via pre-commit
+    # via
+    #   urihandler (pyproject.toml)
+    #   pre-commit
 requests==2.32.3
     # via coveralls
 setuptools==70.0.0
@@ -100,12 +112,15 @@ venusian==3.1.0
 virtualenv==20.26.2
     # via pre-commit
 waitress==3.0.0
-    # via webtest
+    # via
+    #   urihandler (pyproject.toml)
+    #   webtest
 webob==1.8.7
     # via
     #   pyramid
     #   webtest
 webtest==3.0.0
+    # via urihandler (pyproject.toml)
 zope-deprecation==5.0
     # via pyramid
 zope-interface==6.4.post2
