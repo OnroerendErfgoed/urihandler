@@ -1,8 +1,11 @@
 [flake8]
 application_import_names = urihandler, tests
-exclude = .venv,
-          .tox,
-          __pycache__,
+extend-exclude =
+    .pytest_cache
+    static
+filename =
+    ./tests/**.py
+    ./urihandler/**.py
 import-order-style = pycharm
 max-line-length = 90
 ignore = E402, E405, W503, F403, F405
