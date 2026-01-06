@@ -12,7 +12,7 @@ pyramid==2.0.2
     # via urihandler (pyproject.toml)
 pyyaml==6.0.1
     # via urihandler (pyproject.toml)
-setuptools==70.0.0
+setuptools==78.1.1
     # via
     #   pyramid
     #   zope-deprecation
