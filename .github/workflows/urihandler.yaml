@@ -45,7 +45,7 @@ jobs:
         run: |
           source ${{ env.PYTHON_VENV }}/bin/activate
           flake8
-          pytest --cov-report xml:${{ runner.temp }}/coverage.xml --cov=oproeppremieaanvragen tests
+          pytest --cov-report xml:${{ runner.temp }}/coverage.xml --cov=urihandler tests
 
       - name: Get Cover
         uses: orgoro/coverage@v3.2
