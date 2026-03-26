@@ -93,7 +93,7 @@ pyyaml==6.0.1
     # via
     #   urihandler (pyproject.toml)
     #   pre-commit
-requests==2.32.3
+requests==2.33.0
     # via coveralls
 setuptools==70.0.0
     # via
